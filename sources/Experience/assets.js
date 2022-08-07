@@ -5,7 +5,7 @@ export default [
         items:
         [
             { name: 'lennaTexture', source: '/assets/lenna.png', type: 'texture' },
-            { name: 'roomModel', source: '/assets/Room.glb' },
+            { name: 'roomModel', source: '/assets/Room2.glb' },
         ]
     }
 ]

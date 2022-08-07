@@ -92,6 +92,7 @@ export default class Experience
     setCamera()
     {
         this.camera = new Camera()
+        this.camera.instance.position.x = 1000 
     }
 
     setRenderer()

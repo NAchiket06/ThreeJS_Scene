@@ -19,18 +19,7 @@ export default class World
             }
         })
     }
-
-    // setDummy()
-    // {
-    //     this.resources.items.lennaTexture.encoding = THREE.sRGBEncoding
-        
-    //     const cube = new THREE.Mesh(
-    //         new THREE.BoxGeometry(1, 1, 1),
-    //         new THREE.MeshBasicMaterial({ map: this.resources.items.lennaTexture })
-    //     )
-    //     this.scene.add(cube)        
-    // }
-
+    
     setRoom()
     {
         this.room = {}
@@ -38,7 +27,7 @@ export default class World
 
         this.scene.add(this.room.model)
 
-        const directionalLight = new THREE.DirectionalLight('#ffffff',5)
+        const directionalLight = new THREE.DirectionalLight('#ffffff',2)
         directionalLight.position.set(10,10,10)
 
         this.scene.add(directionalLight)

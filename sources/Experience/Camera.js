@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Experience from './Experience.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { Vector3 } from 'three'
 
 export default class Camera
 {
@@ -25,9 +26,9 @@ export default class Camera
     setInstance()
     {
         // Set up
-        this.instance = new THREE.PerspectiveCamera(25, this.config.width / this.config.height, 0.1, 150)
+        this.instance = new THREE.PerspectiveCamera(20, this.config.width / this.config.height, 0.1, 1000)
         this.instance.rotation.reorder('YXZ')
-
+        this.instance.zoomSpeed = 10
         this.scene.add(this.instance)
     }
 
@@ -44,7 +45,7 @@ export default class Camera
         this.modes.debug = {}
         this.modes.debug.instance = this.instance.clone()
         this.modes.debug.instance.rotation.reorder('YXZ')
-        this.modes.debug.instance.position.set(5, 5, 5)
+        this.modes.debug.instance.position.set(75, 60, 75)
         
         this.modes.debug.orbitControls = new OrbitControls(this.modes.debug.instance, this.targetElement)
         this.modes.debug.orbitControls.enabled = this.modes.debug.active
@@ -74,6 +75,7 @@ export default class Camera
         this.modes.debug.orbitControls.update()
 
         // Apply coordinates
+        // console.log(this.instance.position)
         this.instance.position.copy(this.modes[this.mode].instance.position)
         this.instance.quaternion.copy(this.modes[this.mode].instance.quaternion)
         this.instance.updateMatrixWorld() // To be used in projection
