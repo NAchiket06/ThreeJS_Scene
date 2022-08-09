@@ -9,8 +9,11 @@ import Resources from './Resources.js'
 import Renderer from './Renderer.js'
 import Camera from './Camera.js'
 import World from './World.js'
+import Character from './CharacterController.js'
+
 
 import assets from './assets.js'
+import CharacterController from './CharacterController.js'
 
 export default class Experience
 {
@@ -43,13 +46,14 @@ export default class Experience
         this.setRenderer()
         this.setResources()
         this.setWorld()
+        this.setCharacter()
         
         this.sizes.on('resize', () =>
         {
             this.resize()
         })
 
-        this.update()
+        this.update()   
     }
 
     setConfig()
@@ -92,7 +96,6 @@ export default class Experience
     setCamera()
     {
         this.camera = new Camera()
-        this.camera.instance.position.x = 1000 
     }
 
     setRenderer()
@@ -100,6 +103,11 @@ export default class Experience
         this.renderer = new Renderer({ rendererInstance: this.rendererInstance })
 
         this.targetElement.appendChild(this.renderer.instance.domElement)
+    }
+
+    setCharacter()
+    {
+        this.character = new CharacterController();
     }
 
     setResources()
@@ -111,7 +119,6 @@ export default class Experience
     {
         this.world = new World()
     }
-
     update()
     {
         if(this.stats)
@@ -124,6 +131,9 @@ export default class Experience
         
         if(this.renderer)
             this.renderer.update()
+
+        if(this.character)
+            this.character.update()
 
         window.requestAnimationFrame(() =>
         {

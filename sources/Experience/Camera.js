@@ -5,9 +5,9 @@ import { Vector3 } from 'three'
 
 export default class Camera
 {
+
     constructor(_options)
     {
-        // Options
         this.experience = new Experience()
         this.config = this.experience.config
         this.debug = this.experience.debug
@@ -15,12 +15,7 @@ export default class Camera
         this.sizes = this.experience.sizes
         this.targetElement = this.experience.targetElement
         this.scene = this.experience.scene
-
-        // Set up
-        this.mode = 'debug' // defaultCamera \ debugCamera
-
-        this.setInstance()
-        this.setModes()
+        this.setInstance() 
     }
 
     setInstance()
@@ -28,57 +23,28 @@ export default class Camera
         // Set up
         this.instance = new THREE.PerspectiveCamera(20, this.config.width / this.config.height, 0.1, 1000)
         this.instance.rotation.reorder('YXZ')
-        this.instance.zoomSpeed = 10
+        this.instance.position.set(75,60,75)
+        this.instance.orbitControls = new OrbitControls(this.instance, this.targetElement)
+        this.instance.zoomSpeed = 0.25
         this.scene.add(this.instance)
+
+        const helper = new THREE.CameraHelper( this.instance );
+        this.scene.add( helper );
     }
 
-    setModes()
-    {
-        this.modes = {}
-
-        // Default
-        this.modes.default = {}
-        this.modes.default.instance = this.instance.clone()
-        this.modes.default.instance.rotation.reorder('YXZ')
-
-        // Debug
-        this.modes.debug = {}
-        this.modes.debug.instance = this.instance.clone()
-        this.modes.debug.instance.rotation.reorder('YXZ')
-        this.modes.debug.instance.position.set(75, 60, 75)
-        
-        this.modes.debug.orbitControls = new OrbitControls(this.modes.debug.instance, this.targetElement)
-        this.modes.debug.orbitControls.enabled = this.modes.debug.active
-        this.modes.debug.orbitControls.screenSpacePanning = true
-        this.modes.debug.orbitControls.enableKeys = false
-        this.modes.debug.orbitControls.zoomSpeed = 0.25
-        this.modes.debug.orbitControls.enableDamping = true
-        this.modes.debug.orbitControls.update()
-    }
-
-
+    
     resize()
     {
         this.instance.aspect = this.config.width / this.config.height
         this.instance.updateProjectionMatrix()
 
-        this.modes.default.instance.aspect = this.config.width / this.config.height
-        this.modes.default.instance.updateProjectionMatrix()
-
-        this.modes.debug.instance.aspect = this.config.width / this.config.height
-        this.modes.debug.instance.updateProjectionMatrix()
+        this.instance.aspect = this.config.width / this.config.height
+        this.instance.updateProjectionMatrix()
     }
 
     update()
     {
-        // Update debug orbit controls
-        this.modes.debug.orbitControls.update()
 
-        // Apply coordinates
-        // console.log(this.instance.position)
-        this.instance.position.copy(this.modes[this.mode].instance.position)
-        this.instance.quaternion.copy(this.modes[this.mode].instance.quaternion)
-        this.instance.updateMatrixWorld() // To be used in projection
     }
 
     destroy()

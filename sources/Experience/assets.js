@@ -4,8 +4,8 @@ export default [
         data: {},
         items:
         [
-            { name: 'lennaTexture', source: '/assets/lenna.png', type: 'texture' },
-            { name: 'roomModel', source: '/assets/Room2.glb' },
+            //{ name: 'lennaTexture', source: '/assets/lenna.png', type: 'texture' },
+            { name: 'roomModel', source: '/assets/Room3.glb' },
         ]
     }
 ]
