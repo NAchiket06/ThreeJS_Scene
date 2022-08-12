@@ -10,8 +10,6 @@ import Renderer from './Renderer.js'
 import Camera from './Camera.js'
 import World from './World.js'
 import Character from './CharacterController.js'
-
-
 import assets from './assets.js'
 import CharacterController from './CharacterController.js'
 
@@ -107,7 +105,7 @@ export default class Experience
 
     setCharacter()
     {
-        this.character = new CharacterController();
+        this.character = new CharacterController(this, this.config);
     }
 
     setResources()

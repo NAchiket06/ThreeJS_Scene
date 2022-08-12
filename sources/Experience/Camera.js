@@ -20,16 +20,10 @@ export default class Camera
 
     setInstance()
     {
-        // Set up
-        this.instance = new THREE.PerspectiveCamera(20, this.config.width / this.config.height, 0.1, 1000)
-        this.instance.rotation.reorder('YXZ')
-        this.instance.position.set(75,60,75)
-        this.instance.orbitControls = new OrbitControls(this.instance, this.targetElement)
-        this.instance.zoomSpeed = 0.25
-        this.scene.add(this.instance)
-
-        const helper = new THREE.CameraHelper( this.instance );
-        this.scene.add( helper );
+        this.instance = new THREE.PerspectiveCamera( 60, this.config.width / this.config.height, 0.1, 1000);
+        this.instance.rotation.reorder('YXZ');
+        this.instance.position.set(0,15,30)
+        // this.instance.orbitControls = new OrbitControls(this.instance, this.targetElement)
     }
 
     

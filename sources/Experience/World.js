@@ -9,6 +9,7 @@ export default class World
         this.config = this.experience.config
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.instance = this;
         
         this.resources.on('groupEnd', (_group) =>
         {
@@ -25,13 +26,15 @@ export default class World
         this.room.model = this.resources.items.roomModel.scene
         this.scene.add(this.room.model)
 
-        const box = new THREE.BoxHelper( this.sphere, 0xffff00 );
-        this.scene.add( box );
-
         const directionalLight = new THREE.DirectionalLight('#ffffff',2)
-        directionalLight.position.set(10,10,10)
-
+        directionalLight.position.set(5,20,10)
         this.scene.add(directionalLight)
+
+        const geometry = new THREE.BoxGeometry(1,1,1);
+        const material = new THREE.MeshBasicMaterial();
+        const mesh = new THREE.Mesh(geometry,material);
+
+        this.scene.add(mesh);  
     }   
     resize()
     {
